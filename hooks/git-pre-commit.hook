@@ -1,0 +1,22 @@
+#!/bin/sh
+
+make test 2>&1
+if [ $? -ne 0 ]
+then
+	echo "Failed tests..."
+	exit 1
+fi
+
+go fmt 2>&1
+if [ $? -ne 0 ]
+then
+	echo "go fmt has detected potential issues with your project..."
+	exit 1
+fi
+
+go vet 2>&1
+if [ $? -ne 0 ]
+then
+	echo "go vet has detected potential issues in your project..."
+	exit 1
+fi
